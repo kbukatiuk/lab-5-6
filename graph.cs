@@ -19,7 +19,6 @@ class Graph
         AddVertex(first);
         AddVertex(second);
 
-        // Перевіряємо, щоб не додавати однакове ребро двічі
         if (!graph[first].Contains(second))
             graph[first].Add(second);
 
@@ -41,7 +40,21 @@ class Graph
         }
     }
 
-    // Варіант: обчислити степінь кожної вершини графа
+    // Підрахунок кількості ребер графа
+    public int CountEdges()
+    {
+        int count = 0;
+
+        foreach (var item in graph)
+        {
+            count += item.Value.Count;
+        }
+
+        return count / 2;
+    }
+
+    // МІЙ ВАРІАНТ:
+    // Обчислити степінь кожної вершини графа
     public void PrintDegrees()
     {
         foreach (var item in graph)
@@ -116,7 +129,7 @@ class Graph
         }
     }
 
-    // Перевірка, чи є шлях між двома вершинами
+    // Перевірка, чи існує шлях між двома вершинами
     public bool HasPath(int start, int finish)
     {
         if (!graph.ContainsKey(start) || !graph.ContainsKey(finish))
@@ -148,7 +161,7 @@ class Graph
         return false;
     }
 
-    // BFS без виведення, щоб рахувати час
+    // BFS без виведення для експерименту
     public void BFSWithoutPrint(int start)
     {
         if (!graph.ContainsKey(start))
@@ -175,7 +188,7 @@ class Graph
         }
     }
 
-    // DFS без виведення, щоб рахувати час
+    // DFS без виведення для експерименту
     public void DFSWithoutPrint(int start)
     {
         if (!graph.ContainsKey(start))
@@ -219,12 +232,22 @@ class Program
         // Ізольована вершина
         graph.AddVertex(8);
 
+        Console.WriteLine("Завдання 2.2. Графи");
+        Console.WriteLine();
+
+        Console.WriteLine("Мій варіант: обчислити степінь кожної вершини графа");
+        Console.WriteLine();
+
         Console.WriteLine("Список суміжності:");
         graph.PrintGraph();
 
         Console.WriteLine();
 
-        Console.WriteLine("Степені вершин графа:");
+        Console.WriteLine("Кількість ребер у графі: " + graph.CountEdges());
+
+        Console.WriteLine();
+
+        Console.WriteLine("Виконання мого варіанту:");
         graph.PrintDegrees();
 
         Console.WriteLine();
@@ -262,7 +285,6 @@ class Program
         Experiment(100);
     }
 
-    // Експеримент для графів різного розміру
     static void Experiment(int size)
     {
         double bfsTime = 0;
@@ -274,20 +296,14 @@ class Program
 
             Stopwatch timer = new Stopwatch();
 
-            // Час виконання BFS
             timer.Start();
-
             graph.BFSWithoutPrint(1);
-
             timer.Stop();
 
             bfsTime += timer.Elapsed.TotalMilliseconds;
 
-            // Час виконання DFS
             timer.Restart();
-
             graph.DFSWithoutPrint(1);
-
             timer.Stop();
 
             dfsTime += timer.Elapsed.TotalMilliseconds;
@@ -299,20 +315,16 @@ class Program
         Console.WriteLine("Середній час DFS: " + dfsTime / 3 + " мс");
     }
 
-    // Генерація графа для експерименту
     static Graph GenerateGraph(int size)
     {
         Graph graph = new Graph();
 
-        // Додаємо вершини
         for (int i = 1; i <= size; i++)
             graph.AddVertex(i);
 
-        // Додаємо ребра по ланцюжку, щоб граф був зв'язний
         for (int i = 1; i < size; i++)
             graph.AddEdge(i, i + 1);
 
-        // Додаємо ще випадкові ребра
         for (int i = 0; i < size; i++)
         {
             int first = random.Next(1, size + 1);
