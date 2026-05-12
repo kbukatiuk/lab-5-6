@@ -39,8 +39,7 @@ class BST
         // Якщо значення більше, рухаємось вправо
         else if (value > node.Value)
             node.Right = Insert(node.Right, value);
-
-        return node;
+         return node;
     }
 
     // Метод пошуку елемента
@@ -54,19 +53,15 @@ class BST
         // Якщо вузол порожній, значення не знайдено
         if (node == null)
             return false;
-
         // Якщо значення знайдено
         if (node.Value == value)
             return true;
-
         // Якщо значення менше, шукаємо в лівому піддереві
         if (value < node.Value)
             return Search(node.Left, value);
-
         // Інакше шукаємо в правому піддереві
         return Search(node.Right, value);
     }
-
     // Підрахунок кількості вузлів
     public int Count()
     {
@@ -77,7 +72,6 @@ class BST
     {
         if (node == null)
             return 0;
-
         return 1 + Count(node.Left) + Count(node.Right);
     }
 
@@ -94,8 +88,7 @@ class BST
 
         int left = Height(node.Left);
         int right = Height(node.Right);
-
-        return Math.Max(left, right) + 1;
+          return Math.Max(left, right) + 1;
     }
 
     // Прямий обхід: корінь, ліво, право
@@ -109,7 +102,6 @@ class BST
     {
         if (node == null)
             return;
-
         Console.Write(node.Value + " ");
         PreOrder(node.Left);
         PreOrder(node.Right);
@@ -166,7 +158,6 @@ class BST
 
             if (current.Left != null)
                 queue.Enqueue(current.Left);
-
             if (current.Right != null)
                 queue.Enqueue(current.Right);
         }
@@ -205,10 +196,8 @@ class Program
     static void Main()
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
-
-        BST tree = new BST();
-
-        // Додаємо елементи в дерево
+       BST tree = new BST();
+       // Додаємо елементи в дерево
         tree.Insert(50);
         tree.Insert(30);
         tree.Insert(70);
@@ -234,10 +223,8 @@ class Program
 
         Console.WriteLine("Кількість вузлів: " + tree.Count());
         Console.WriteLine("Висота дерева: " + tree.Height());
-
         Console.WriteLine("Пошук числа 40: " + tree.Search(40));
         Console.WriteLine("Пошук числа 100: " + tree.Search(100));
-
         Console.WriteLine();
 
         Console.Write("Введіть рівень k: ");
@@ -248,7 +235,6 @@ class Program
 
         Console.WriteLine();
         Console.WriteLine("Експериментальна частина");
-
         Experiment(100);
         Experiment(1000);
         Experiment(5000);
