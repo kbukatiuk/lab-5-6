@@ -18,21 +18,17 @@ class Graph
     {
         AddVertex(first);
         AddVertex(second);
-
         if (!graph[first].Contains(second))
             graph[first].Add(second);
-
         if (!graph[second].Contains(first))
             graph[second].Add(first);
     }
-
     // Виведення списку суміжності
     public void PrintGraph()
     {
         foreach (var item in graph)
         {
             Console.Write(item.Key + ": ");
-
             foreach (int vertex in item.Value)
                 Console.Write(vertex + " ");
 
@@ -44,15 +40,12 @@ class Graph
     public int CountEdges()
     {
         int count = 0;
-
         foreach (var item in graph)
         {
             count += item.Value.Count;
         }
-
         return count / 2;
     }
-
     // МІЙ ВАРІАНТ:
     // Обчислити степінь кожної вершини графа
     public void PrintDegrees()
@@ -61,11 +54,9 @@ class Graph
         {
             int vertex = item.Key;
             int degree = item.Value.Count;
-
             Console.WriteLine("Степінь вершини " + vertex + " = " + degree);
         }
     }
-
     // Обхід графа в ширину
     public void BFS(int start)
     {
@@ -74,19 +65,15 @@ class Graph
             Console.WriteLine("Такої вершини немає");
             return;
         }
-
         Queue<int> queue = new Queue<int>();
         HashSet<int> visited = new HashSet<int>();
-
         queue.Enqueue(start);
         visited.Add(start);
 
         while (queue.Count > 0)
         {
             int current = queue.Dequeue();
-
             Console.Write(current + " ");
-
             foreach (int next in graph[current])
             {
                 if (!visited.Contains(next))
@@ -108,20 +95,15 @@ class Graph
             Console.WriteLine("Такої вершини немає");
             return;
         }
-
         HashSet<int> visited = new HashSet<int>();
-
         DFS(start, visited);
-
         Console.WriteLine();
     }
 
     private void DFS(int current, HashSet<int> visited)
     {
         visited.Add(current);
-
         Console.Write(current + " ");
-
         foreach (int next in graph[current])
         {
             if (!visited.Contains(next))
@@ -140,11 +122,9 @@ class Graph
 
         queue.Enqueue(start);
         visited.Add(start);
-
         while (queue.Count > 0)
         {
             int current = queue.Dequeue();
-
             if (current == finish)
                 return true;
 
@@ -166,7 +146,6 @@ class Graph
     {
         if (!graph.ContainsKey(start))
             return;
-
         Queue<int> queue = new Queue<int>();
         HashSet<int> visited = new HashSet<int>();
 
@@ -176,7 +155,6 @@ class Graph
         while (queue.Count > 0)
         {
             int current = queue.Dequeue();
-
             foreach (int next in graph[current])
             {
                 if (!visited.Contains(next))
@@ -193,16 +171,13 @@ class Graph
     {
         if (!graph.ContainsKey(start))
             return;
-
         HashSet<int> visited = new HashSet<int>();
-
         DFSWithoutPrint(start, visited);
     }
 
     private void DFSWithoutPrint(int current, HashSet<int> visited)
     {
         visited.Add(current);
-
         foreach (int next in graph[current])
         {
             if (!visited.Contains(next))
@@ -214,11 +189,9 @@ class Graph
 class Program
 {
     static Random random = new Random();
-
     static void Main()
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
-
         Graph graph = new Graph();
 
         // Створення графа
@@ -231,44 +204,37 @@ class Program
 
         // Ізольована вершина
         graph.AddVertex(8);
-
         Console.WriteLine("Завдання 2.2. Графи");
         Console.WriteLine();
-
+        
         Console.WriteLine("Мій варіант: обчислити степінь кожної вершини графа");
         Console.WriteLine();
-
+        
         Console.WriteLine("Список суміжності:");
         graph.PrintGraph();
-
+        
         Console.WriteLine();
-
         Console.WriteLine("Кількість ребер у графі: " + graph.CountEdges());
-
         Console.WriteLine();
-
+        
         Console.WriteLine("Виконання мого варіанту:");
         graph.PrintDegrees();
-
         Console.WriteLine();
-
+        
         Console.WriteLine("Обхід графа в ширину BFS:");
         graph.BFS(1);
-
+        
         Console.WriteLine("Обхід графа в глибину DFS:");
         graph.DFS(1);
-
+        
         Console.WriteLine();
-
         Console.WriteLine("Перевірка шляху між вершинами 1 і 7:");
 
         if (graph.HasPath(1, 7))
             Console.WriteLine("Шлях існує");
         else
             Console.WriteLine("Шляху немає");
-
         Console.WriteLine();
-
         Console.WriteLine("Перевірка шляху між вершинами 1 і 8:");
 
         if (graph.HasPath(1, 8))
@@ -277,7 +243,6 @@ class Program
             Console.WriteLine("Шляху немає");
 
         Console.WriteLine();
-
         Console.WriteLine("Експериментальна частина:");
 
         Experiment(10);
@@ -293,9 +258,7 @@ class Program
         for (int i = 0; i < 3; i++)
         {
             Graph graph = GenerateGraph(size);
-
             Stopwatch timer = new Stopwatch();
-
             timer.Start();
             graph.BFSWithoutPrint(1);
             timer.Stop();
@@ -305,7 +268,6 @@ class Program
             timer.Restart();
             graph.DFSWithoutPrint(1);
             timer.Stop();
-
             dfsTime += timer.Elapsed.TotalMilliseconds;
         }
 
@@ -329,11 +291,9 @@ class Program
         {
             int first = random.Next(1, size + 1);
             int second = random.Next(1, size + 1);
-
             if (first != second)
                 graph.AddEdge(first, second);
         }
-
         return graph;
     }
 }
