@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+
 class Node
 {
     public int Value;
@@ -29,12 +30,12 @@ class BST
         // Якщо значення менше, рухаємось вліво
         if (value < node.Value)
             node.Left = Insert(node.Left, value);
-
         // Якщо значення більше, рухаємось вправо
         else if (value > node.Value)
             node.Right = Insert(node.Right, value);
          return node;
     }
+    
     // Метод пошуку елемента
     public bool Search(int value)
     {
