@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-
 class Graph
 {
     private Dictionary<int, List<int>> graph = new Dictionary<int, List<int>>();
-
     // Додавання вершини
     public void AddVertex(int vertex)
     {
