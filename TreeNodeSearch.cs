@@ -1,5 +1,4 @@
 #nullable disable
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,7 +8,6 @@ class Node
     public int Value;
     public Node Left;
     public Node Right;
-
     public Node(int value)
     {
         Value = value;
@@ -19,19 +17,16 @@ class Node
 class BST
 {
     private Node root;
-
     // Метод додавання елемента
     public void Insert(int value)
     {
         root = Insert(root, value);
     }
-
     private Node Insert(Node node, int value)
     {
         // Якщо місце порожнє, створюємо новий вузол
         if (node == null)
             return new Node(value);
-
         // Якщо значення менше, рухаємось вліво
         if (value < node.Value)
             node.Left = Insert(node.Left, value);
@@ -41,7 +36,6 @@ class BST
             node.Right = Insert(node.Right, value);
          return node;
     }
-
     // Метод пошуку елемента
     public bool Search(int value)
     {
@@ -67,14 +61,12 @@ class BST
     {
         return Count(root);
     }
-
     private int Count(Node node)
     {
         if (node == null)
             return 0;
         return 1 + Count(node.Left) + Count(node.Right);
     }
-
     // Обчислення висоти дерева
     public int Height()
     {
@@ -85,19 +77,16 @@ class BST
     {
         if (node == null)
             return 0;
-
         int left = Height(node.Left);
         int right = Height(node.Right);
           return Math.Max(left, right) + 1;
     }
-
     // Прямий обхід: корінь, ліво, право
     public void PreOrder()
     {
         PreOrder(root);
         Console.WriteLine();
     }
-
     private void PreOrder(Node node)
     {
         if (node == null)
@@ -106,31 +95,26 @@ class BST
         PreOrder(node.Left);
         PreOrder(node.Right);
     }
-
     // Симетричний обхід: ліво, корінь, право
     public void InOrder()
     {
         InOrder(root);
         Console.WriteLine();
     }
-
     private void InOrder(Node node)
     {
         if (node == null)
             return;
-
         InOrder(node.Left);
         Console.Write(node.Value + " ");
         InOrder(node.Right);
     }
-
     // Зворотний обхід: ліво, право, корінь
     public void PostOrder()
     {
         PostOrder(root);
         Console.WriteLine();
     }
-
     private void PostOrder(Node node)
     {
         if (node == null)
@@ -140,13 +124,11 @@ class BST
         PostOrder(node.Right);
         Console.Write(node.Value + " ");
     }
-
     // Обхід дерева в ширину
     public void BFS()
     {
         if (root == null)
             return;
-
         Queue<Node> queue = new Queue<Node>();
         queue.Enqueue(root);
 
@@ -171,7 +153,7 @@ class BST
         PrintLevel(root, 0, k);
         Console.WriteLine();
     }
-
+    
     private void PrintLevel(Node node, int level, int k)
     {
         if (node == null)
@@ -192,7 +174,6 @@ class BST
 class Program
 {
     static Random random = new Random();
-
     static void Main()
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
@@ -245,7 +226,6 @@ class Program
     {
         double bstInsertTime = 0;
         double bstSearchTime = 0;
-
         double setInsertTime = 0;
         double setSearchTime = 0;
 
@@ -260,7 +240,6 @@ class Program
 
             // Час вставлення у власне дерево
             timer.Start();
-
             foreach (int number in data)
                 tree.Insert(number);
 
@@ -269,28 +248,22 @@ class Program
 
             // Час пошуку у власному дереві
             timer.Restart();
-
             foreach (int number in data)
                 tree.Search(number);
-
             timer.Stop();
             bstSearchTime += timer.Elapsed.TotalMilliseconds;
 
             // Час вставлення у SortedSet
             timer.Restart();
-
             foreach (int number in data)
                 set.Add(number);
-
             timer.Stop();
             setInsertTime += timer.Elapsed.TotalMilliseconds;
 
             // Час пошуку у SortedSet
             timer.Restart();
-
             foreach (int number in data)
                 set.Contains(number);
-
             timer.Stop();
             setSearchTime += timer.Elapsed.TotalMilliseconds;
         }
@@ -302,7 +275,6 @@ class Program
         Console.WriteLine("SortedSet вставлення: " + setInsertTime / 3 + " мс");
         Console.WriteLine("SortedSet пошук: " + setSearchTime / 3 + " мс");
     }
-
     // Генерація випадкових чисел без повторів
     static int[] GenerateData(int size)
     {
@@ -313,7 +285,6 @@ class Program
             int value = random.Next(1, size * 10);
             numbers.Add(value);
         }
-
         int[] result = new int[size];
         numbers.CopyTo(result);
 
